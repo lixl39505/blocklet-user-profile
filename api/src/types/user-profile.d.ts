@@ -12,11 +12,12 @@ export interface Candidates {
  * 个人简历
  */
 export interface UserProfile {
-  baseInfo: BaseInfo;
-  edus: Education[];
-  intro: Introduction;
-  jobs: Job[];
-  projects: Project[];
+  id?: UID;
+  baseInfo?: BaseInfo;
+  edus?: Education[];
+  intro?: Introduction;
+  jobs?: Job[];
+  projects?: Project[];
 }
 /**
  * 基础信息
