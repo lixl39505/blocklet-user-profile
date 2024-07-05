@@ -1,5 +1,4 @@
-// import { Menu } from 'antd';
-// import { useMatches } from 'react-router-dom';
+import { Card } from 'antd';
 import BaseInfo from './base-info';
 import useProfile, { ProfileContext, ProfileDispatchContext } from './hooks/use-profile';
 
@@ -9,7 +8,9 @@ function Profile() {
   return (
     <ProfileContext.Provider value={profile}>
       <ProfileDispatchContext.Provider value={dispath}>
-        <BaseInfo />
+        <Card>
+          <BaseInfo />
+        </Card>
       </ProfileDispatchContext.Provider>
     </ProfileContext.Provider>
   );

@@ -9,13 +9,12 @@ export interface Candidates {
   };
 }
 /**
- * 个人简历
+ * 个人档案
  */
 export interface UserProfile {
   id?: UID;
   baseInfo?: BaseInfo;
   edus?: Education[];
-  intro?: Introduction;
   jobs?: Job[];
   projects?: Project[];
 }
@@ -27,11 +26,8 @@ export interface BaseInfo {
   gender?: Gender; // 性别
   phone?: string; // 手机号
   email?: string; // 邮箱
+  intro?: string; // 简介
 }
-/**
- * 自我介绍
- */
-export type Introduction = string;
 /**
  * 教育经历
  */

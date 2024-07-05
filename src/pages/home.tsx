@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+
 import reactLogo from '../assets/react.svg';
 import blockletLogo from '../assets/blocklet.svg';
 import viteLogo from '../assets/vite.svg';
@@ -33,10 +35,11 @@ function Home() {
           count is {count}
         </button>
         <br />
-        <br />
         <button type="button" onClick={getApiData}>
           Get API Data
         </button>
+        <br />
+        <NavLink to="/profile">档案</NavLink>
         <p>
           Edit <code>src/app.tsx</code> and save to test HMR
         </p>

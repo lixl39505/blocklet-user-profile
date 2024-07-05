@@ -1,12 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-// Andesign
+// Antdesign
 import { ConfigProvider, App } from 'antd';
 import dayjs from 'dayjs';
 import zhCN from 'antd/locale/zh_CN';
 import 'dayjs/locale/zh-cn';
 
 import light from './themes/light';
-import Home from './pages/home';
 import Profile from './pages/profile/profile';
 
 // 默认中文
@@ -21,8 +20,7 @@ export default function WrappedApp() {
       <Router basename={basename}>
         <App className="app">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/profile/:id?" element={<Profile />} />
+            <Route path="/" element={<Profile />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </App>

@@ -1,16 +1,10 @@
 import { createContext, Dispatch, useEffect, useReducer } from 'react';
-import { profileOne } from '~/src/api/user-profile';
+import { profileOne } from '@api/user-profile';
 import { UserProfile } from '~/types/user-profile';
 
 export const ProfileContext = createContext<UserProfile | null>(null);
 export const ProfileDispatchContext = createContext<Dispatch<{ type: ActionType; payload: UserProfile }> | null>(null);
-export type ActionType =
-  | 'replace'
-  | 'update:baseInfo'
-  | 'update:edus'
-  | 'update:intro'
-  | 'update:jobs'
-  | 'update:projects';
+export type ActionType = 'replace' | 'update:baseInfo' | 'update:edus' | 'update:jobs' | 'update:projects';
 
 const initialProfile: UserProfile = {};
 
@@ -25,12 +19,6 @@ function profileReducer(profile: UserProfile, action: { type: ActionType; payloa
       return {
         ...profile,
         baseInfo: payload.baseInfo,
-      };
-    }
-    case 'update:intro': {
-      return {
-        ...profile,
-        intro: payload.intro,
       };
     }
     case 'update:edus': {
@@ -57,27 +45,26 @@ function profileReducer(profile: UserProfile, action: { type: ActionType; payloa
   }
 }
 
-export default function useProfile(id?: string) {
+export default function useProfile() {
   const [profile, dispatch] = useReducer(profileReducer, initialProfile);
 
   useEffect(() => {
     let canceled = false;
+
     // 初始化加载 profile 数据
-    if (id) {
-      profileOne(id).then((newProfile) => {
-        if (!canceled) {
-          dispatch({
-            type: 'replace',
-            payload: newProfile,
-          });
-        }
-      });
-    }
+    profileOne().then((newProfile) => {
+      if (!canceled && newProfile) {
+        dispatch({
+          type: 'replace',
+          payload: newProfile,
+        });
+      }
+    });
 
     return () => {
       canceled = true;
     };
-  }, [id]);
+  }, []);
 
   return [profile, dispatch] as const;
 }

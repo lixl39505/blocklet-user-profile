@@ -14,6 +14,19 @@ router.use('/data', (_, res) =>
   }),
 );
 
+// 查询第一份档案
+router.post('/profile/one', async (_, res) => {
+  const db = await initDB();
+
+  const { ids, map } = db.data;
+  if (ids.length) {
+    res.json({ code: 200, payload: map[ids[0]!] });
+  } else {
+    res.json({ code: 200, payload: null });
+  }
+});
+
+// 保存档案
 router.post('/profile/save', async (req: Request<{}, any, UserProfile>, res) => {
   const profile = { ...req.body };
 
@@ -36,7 +49,7 @@ router.post('/profile/save', async (req: Request<{}, any, UserProfile>, res) => 
     }
   });
 
-  res.json({ code: 200, data: 'success' });
+  res.json({ code: 200, payload: profile.id });
 });
 
 export default router;
