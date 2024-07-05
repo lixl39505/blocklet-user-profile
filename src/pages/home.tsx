@@ -14,12 +14,6 @@ function Home() {
     alert(`Message from api: ${message}`);
   }
 
-  async function profileSave() {
-    await api.post('/api/profile/save', {
-      baseInfo: { name: 'test01' },
-    });
-  }
-
   return (
     <>
       <div>
@@ -37,9 +31,6 @@ function Home() {
       <div className="card">
         <button type="button" onClick={() => setCount((currentCount) => currentCount + 1)}>
           count is {count}
-        </button>
-        <button type="button" onClick={() => profileSave()}>
-          保存
         </button>
         <br />
         <br />

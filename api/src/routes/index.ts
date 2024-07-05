@@ -1,6 +1,6 @@
 import middleware from '@blocklet/sdk/lib/middlewares';
 import { Request, Router } from 'express';
-import { UserProfile } from '../types/user-profile';
+import { UserProfile } from '~/types/user-profile';
 import initDB from '../libs/db';
 import { uid } from '../libs/util';
 

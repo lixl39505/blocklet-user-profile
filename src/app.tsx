@@ -7,6 +7,7 @@ import 'dayjs/locale/zh-cn';
 
 import light from './themes/light';
 import Home from './pages/home';
+import Profile from './pages/profile/profile';
 
 // 默认中文
 dayjs.locale('zh-cn');
@@ -21,6 +22,7 @@ export default function WrappedApp() {
         <App className="app">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/profile/:id?" element={<Profile />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </App>

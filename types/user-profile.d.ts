@@ -26,7 +26,7 @@ export interface BaseInfo {
   name: string; // 姓名
   gender?: Gender; // 性别
   phone?: string; // 手机号
-  mail?: string; // 邮箱
+  email?: string; // 邮箱
 }
 /**
  * 自我介绍
