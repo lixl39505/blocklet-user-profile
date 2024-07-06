@@ -1,6 +1,8 @@
 import { createStyles } from 'antd-style';
 
-export default createStyles(({ token, css }) => {
+export default createStyles(({ token, css, responsive }) => {
+  const topHeight = 48;
+
   return {
     // 主体布局
     main: css`
@@ -13,9 +15,20 @@ export default createStyles(({ token, css }) => {
       border-radius: 4px;
       padding: 16px 24px;
       margin-bottom: 12px;
-      &.aside {
+      &.nav {
         margin-right: 12px;
         padding: 12px 4px;
+      }
+    `,
+    // 侧边栏
+    aside: css`
+      &.ant-layout-sider {
+        position: sticky;
+        top: 8px;
+        align-self: flex-start;
+      }
+      ${responsive.sm} {
+        display: none;
       }
     `,
     // 导航条目
@@ -27,6 +40,31 @@ export default createStyles(({ token, css }) => {
       font-size: 14px;
       &:hover {
         background: ${token.colorBgTextHover};
+      }
+    `,
+    // 顶部栏(移动端)
+    topbar: css`
+      display: none;
+      box-sizing: border-box;
+      height: ${topHeight}px;
+      line-height: ${topHeight}px;
+      width: 100%;
+      padding: 0 10px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      background: #ffffff;
+      z-index: 1;
+      ${responsive.sm} {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    `,
+    // 内容区
+    content: css`
+      ${responsive.sm} {
+        margin-top: ${topHeight + 10}px;
       }
     `,
     // 信息块
@@ -41,6 +79,10 @@ export default createStyles(({ token, css }) => {
     bH: css`
       margin-top: 0;
       margin-bottom: 0.83em;
+      ${responsive.sm} {
+        padding-top: ${topHeight + 20}px;
+        margin-top: -${topHeight + 20}px;
+      }
     `,
     // 信息块-头部操作栏
     bHAction: css`
