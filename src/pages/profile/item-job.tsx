@@ -60,7 +60,7 @@ function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void
             name="endDate"
             rules={[
               {
-                validator(rule, value: Dayjs, callback) {
+                validator(_, value: Dayjs, callback) {
                   if (value && value.isBefore(form.getFieldValue('startDate'))) {
                     return callback('结束时间不得早于开始时间');
                   }
