@@ -54,7 +54,19 @@ function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void
           <Form.Item<FJob> label="开始时间" name="startDate" rules={[{ required: true, message: '请填写开始时间' }]}>
             <DatePicker picker="month" allowClear />
           </Form.Item>
-          <Form.Item<FJob> label="结束时间" name="endDate">
+          <Form.Item<FJob>
+            label="结束时间"
+            name="endDate"
+            rules={[
+              {
+                validator(rule, value: Dayjs, callback) {
+                  if (value.isBefore(form.getFieldValue('startDate'))) {
+                    callback('结束时间不得早于开始时间');
+                  }
+                  callback();
+                },
+              },
+            ]}>
             <DatePicker picker="month" placeholder="至今" allowClear />
           </Form.Item>
           <Form.Item<FJob> label="工作描述" name="desc">
