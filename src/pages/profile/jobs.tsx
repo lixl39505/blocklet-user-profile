@@ -63,6 +63,7 @@ function Jobs() {
       onFormFinish={(_, { values }) => {
         onJobSave(values as Job);
       }}>
+      <h2 id="jobs">工作经历</h2>
       <Button type="primary" onClick={onAdd}>
         新增
       </Button>

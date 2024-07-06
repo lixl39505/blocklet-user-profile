@@ -1,23 +1,18 @@
 import { createStyles } from 'antd-style';
 
-export default createStyles(({ css }) => ({
-  main: {
-    height: '100%',
-  },
-  logo: css`
-    overflow: hidden;
-    white-space: nowrap;
-    line-height: 48px;
-    padding: 0 16px;
-    color: #ededed;
-    font-size: 16px;
-    text-align: center;
+export default createStyles(({ token, css }) => ({
+  main: css`
+    max-width: ${token.screenXL}px;
+    margin: 0 auto;
   `,
-  iconLarge: {
-    fontSize: '40px',
-  },
-  content: css`
-    overflow: auto;
-    padding: 16px;
+  nav: css`
+    display: block;
+    color: ${token.colorText};
+    text-indent: 8px;
+    line-height: 36px;
+    font-size: 14px;
+    &:hover {
+      background: ${token.colorBgTextHover};
+    }
   `,
 }));
