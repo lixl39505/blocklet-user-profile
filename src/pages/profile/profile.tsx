@@ -23,24 +23,24 @@ function Profile() {
             trigger={null}
             theme="light"
             width={180}>
-            <div className={`${styles.card} ${styles.aside}`}>
-              <a className={styles.nav} href="#baseInfo">
+            <div className={`${styles.card} aside`}>
+              <a className={styles.navItem} href="#baseInfo">
                 基本信息
               </a>
-              <a className={styles.nav} href="#jobs">
+              <a className={styles.navItem} href="#jobs">
                 工作经历
               </a>
             </div>
           </Layout.Sider>
           <Layout.Content>
             <div className={styles.card}>
-              <h2 className={styles.title} id="baseInfo">
+              <h2 className={styles.bH} id="baseInfo">
                 基本信息
               </h2>
               <BaseInfo />
             </div>
             <div className={styles.card}>
-              <h2 className={styles.title} id="jobs">
+              <h2 className={styles.bH} id="jobs">
                 工作经历
               </h2>
               <Jobs />
