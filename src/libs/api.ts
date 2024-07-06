@@ -1,5 +1,6 @@
 import { createAxios } from '@blocklet/js-sdk';
 import { HttpStatusCode } from 'axios';
+import { message } from 'antd';
 
 declare module 'axios' {
   export interface AxiosInstance {
@@ -25,6 +26,7 @@ api.interceptors.response.use(
     console.log(`${config.url}:`, res.data);
 
     if (data.code !== HttpStatusCode.Ok) {
+      message.error(data.payload.slice(0, 20));
       return Promise.reject(data.payload);
     }
 

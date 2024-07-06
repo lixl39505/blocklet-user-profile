@@ -21,10 +21,10 @@ function BaseInfo() {
 
   // baseInfo 同步
   useEffect(() => {
-    if (profile.id && profile.baseInfo) {
+    if (profile.id && profile.baseInfo && editable) {
       form.setFieldsValue(profile.baseInfo);
     }
-  }, [profile, form]);
+  }, [profile, form, editable]);
 
   // 保存
   const onFinish: FormProps<TBaseInfo>['onFinish'] = async (values) => {

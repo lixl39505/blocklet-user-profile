@@ -18,6 +18,7 @@ const toFJob = (job: Job) => ({
 });
 
 // 工作信息
+// eslint-disable-next-line react/require-default-props
 function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void; onDelete?: (item: Job) => void }) {
   const { name, job, onCancel, onDelete } = props;
   const [editable, setEditable] = useState(job.id === 'Added');
@@ -29,8 +30,8 @@ function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void
 
   // job sync
   useEffect(() => {
-    if (job) form.setFieldsValue(toFJob(job));
-  }, [job, form]);
+    if (job && editable) form.setFieldsValue(toFJob(job));
+  }, [job, form, editable]);
 
   return (
     <div className={styles.bb}>
@@ -115,12 +116,5 @@ function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void
     </div>
   );
 }
-
-const dump = () => {};
-
-ItemJob.defaultProps = {
-  onCancel: dump,
-  onDelete: dump,
-};
 
 export default ItemJob;

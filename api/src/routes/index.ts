@@ -39,11 +39,15 @@ router.post('/profile/one', async (_, res) => {
 // 保存基础信息
 router.post('/baseInfo/save', async (req: Request<{}, any, { pid: string; data: BaseInfo }>, res) => {
   const { pid, data } = req.body;
+  let errorMsg = '';
 
-  // Check if username and pwd are present
-  // if (!username || !pwd) {
-  //   return res.status(400).json({ error: 'Username and password are required' });
-  // }
+  // Check phone number
+  if (!data.phone) errorMsg = '手机号不得为空';
+  else if (/^1\d{10}$/.test(data.phone) === false) errorMsg = '手机号格式不正确';
+
+  if (errorMsg) {
+    return res.json({ code: 400, payload: errorMsg });
+  }
 
   const db = await initDB();
   const profile = getOrCreateProfile(db, pid);
@@ -51,7 +55,7 @@ router.post('/baseInfo/save', async (req: Request<{}, any, { pid: string; data: 
   profile.baseInfo = data;
   await db.write();
 
-  res.json({ code: 200, payload: profile.id });
+  return res.json({ code: 200, payload: profile.id });
 });
 
 // 保存工作经验
