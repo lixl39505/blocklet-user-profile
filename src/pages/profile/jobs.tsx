@@ -5,7 +5,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { jobDelete, jobSave } from '~/src/api/user-profile';
 import { Job } from '~/types/user-profile';
 import { ProfileContext, ProfileDispatchContext } from './hooks/use-profile';
-import ItemJob from './item-job';
+import ItemJob, { FJob } from './item-job';
 import useStyles from './profile.style';
 
 // 工作经历列表
@@ -63,11 +63,16 @@ function Jobs() {
     });
   };
   // 保存工作经验
-  const onJobSave = async (job: Job) => {
-    const data = { ...job };
+  const onJobSave = async (job: FJob) => {
+    const data: Job = {
+      ...job,
+      startDate: job.startDate.format('YYYY-MM'),
+      endDate: job.endDate ? job.endDate.format('YYYY-MM') : '',
+    };
+
     if (data.id === 'Added') {
+      doDelete(data);
       data.id = '';
-      doDelete(job);
       setIsAddMode(false);
     }
     const id = await jobSave(profile.id, data);
@@ -88,7 +93,7 @@ function Jobs() {
   return (
     <Form.Provider
       onFormFinish={(_, { values }) => {
-        onJobSave(values as Job);
+        onJobSave(values as FJob);
       }}>
       <div className={styles.b}>
         <div className={styles.bHAction}>

@@ -1,9 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, DatePicker } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import dayjs, { Dayjs } from 'dayjs';
 
 import { type Job } from '~/types/user-profile';
 import useStyles from './profile.style';
+
+export interface FJob extends Omit<Job, 'startDate' | 'endDate'> {
+  startDate: Dayjs;
+  endDate: Dayjs;
+}
+
+const toFJob = (job: Job) => ({
+  ...job,
+  startDate: job.startDate ? dayjs(job.startDate) : '',
+  endDate: job.endDate ? dayjs(job.endDate) : '',
+});
 
 // 工作信息
 function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void; onDelete?: (item: Job) => void }) {
@@ -12,12 +24,12 @@ function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void
   const { styles } = useStyles();
 
   // init form
-  const initialData = job;
-  const [form] = Form.useForm<Job>();
+  const initialData = toFJob(job);
+  const [form] = Form.useForm<FJob>();
 
   // job sync
   useEffect(() => {
-    if (job) form.setFieldsValue(job);
+    if (job) form.setFieldsValue(toFJob(job));
   }, [job, form]);
 
   return (
@@ -30,22 +42,22 @@ function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void
           autoComplete="off"
           initialValues={initialData}
           onFinish={() => setEditable(false)}>
-          <Form.Item<Job> name="id" hidden>
+          <Form.Item<FJob> name="id" hidden>
             <Input />
           </Form.Item>
-          <Form.Item<Job> label="公司名称" name="company" rules={[{ required: true, message: '请填写公司名称' }]}>
+          <Form.Item<FJob> label="公司名称" name="company" rules={[{ required: true, message: '请填写公司名称' }]}>
             <Input placeholder="例如: " maxLength={50} allowClear />
           </Form.Item>
-          <Form.Item<Job> label="职位名称" name="post" rules={[{ required: true, message: '请填写职位名称' }]}>
+          <Form.Item<FJob> label="职位名称" name="post" rules={[{ required: true, message: '请填写职位名称' }]}>
             <Input placeholder="例如: 产品经理" maxLength={50} allowClear />
           </Form.Item>
-          <Form.Item<Job> label="开始时间" name="startDate" rules={[{ required: true, message: '请填写开始时间' }]}>
-            <Input allowClear />
+          <Form.Item<FJob> label="开始时间" name="startDate" rules={[{ required: true, message: '请填写开始时间' }]}>
+            <DatePicker picker="month" allowClear />
           </Form.Item>
-          <Form.Item<Job> label="结束时间" name="endDate" rules={[{ required: true, message: '请填写结束时间' }]}>
-            <Input allowClear />
+          <Form.Item<FJob> label="结束时间" name="endDate">
+            <DatePicker picker="month" placeholder="至今" allowClear />
           </Form.Item>
-          <Form.Item<Job> label="工作描述" name="desc">
+          <Form.Item<FJob> label="工作描述" name="desc">
             <Input.TextArea rows={4} placeholder="不超过 300 字" maxLength={300} allowClear />
           </Form.Item>
           <Form.Item className={styles.bFormItem} style={{ textAlign: 'center' }}>
@@ -77,15 +89,15 @@ function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void
             </Button>
           </div>
           <div className={styles.bLabel}>公司名称</div>
-          <div className={styles.bValue}>{initialData.company}</div>
+          <div className={styles.bValue}>{job.company}</div>
           <div className={styles.bLabel}>职位名称</div>
-          <div className={styles.bValue}>{initialData.post}</div>
+          <div className={styles.bValue}>{job.post}</div>
           <div className={styles.bLabel}>时间</div>
           <div className={styles.bValue}>
-            {initialData.startDate} - {initialData.endDate || '至今'}
+            {job.startDate} - {job.endDate || '至今'}
           </div>
           <div className={styles.bLabel}>工作描述</div>
-          <div className={styles.bValue}>{initialData.desc}</div>
+          <div className={styles.bValue}>{job.desc}</div>
         </div>
       )}
     </div>
