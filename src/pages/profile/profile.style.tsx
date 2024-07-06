@@ -108,6 +108,7 @@ export default createStyles(({ token, css, responsive }) => {
       color: ${token.colorText};
       line-height: 16px;
       margin-bottom: 24px;
+      white-space: pre-wrap;
       &:last-child {
         margin-bottom: 0;
       }
@@ -115,7 +116,8 @@ export default createStyles(({ token, css, responsive }) => {
     // 子信息块
     bb: css`
       position: relative;
-      margin-bottom: 44px;
+      padding-bottom: 10px;
+      margin-bottom: 34px;
       border-bottom: 1px solid ${token.colorBorder};
       &:last-child {
         margin-bottom: 16px;
