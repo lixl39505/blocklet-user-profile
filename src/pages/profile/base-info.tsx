@@ -46,14 +46,11 @@ function BaseInfo() {
   return (
     <div className={styles.b}>
       {!editable && (
-        <Button
-          className={styles.bHBtn}
-          icon={<EditOutlined />}
-          type="link"
-          iconPosition="start"
-          onClick={() => setEditable(true)}>
-          编辑
-        </Button>
+        <div className={styles.bHAction}>
+          <Button icon={<EditOutlined />} type="link" iconPosition="start" onClick={() => setEditable(true)}>
+            编辑
+          </Button>
+        </div>
       )}
       {editable ? (
         <Form

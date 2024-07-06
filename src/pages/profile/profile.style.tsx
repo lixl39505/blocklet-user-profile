@@ -32,32 +32,64 @@ export default createStyles(({ token, css }) => {
     // 信息块
     b: css`
       position: relative;
+      & .ant-form {
+        background-color: ${token.colorBgLayout};
+        outline: 10px ${token.colorBgLayout} solid;
+      }
     `,
     // 信息块-头部
     bH: css`
       margin-top: 0;
       margin-bottom: 0.83em;
     `,
-    // 信息块-头部按钮
-    bHBtn: css`
+    // 信息块-头部操作栏
+    bHAction: css`
       position: absolute;
-      right: 0;
-      top: -56px;
+      right: 16px;
+      top: -50px;
+      & .ant-btn {
+        margin-left: 12px;
+        padding: 0;
+      }
+    `,
+    bFormItem: css`
+      margin-bottom: 14px;
     `,
     bLabel: css`
       color: ${token.colorTextDescription};
       font-size: 14px;
       line-height: 14px;
-      margin-top: 24px;
+      margin-bottom: 12px;
     `,
     bValue: css`
       font-size: 16px;
       color: ${token.colorText};
       line-height: 16px;
-      margin-top: 12px;
+      margin-bottom: 24px;
+      &:last-child {
+        margin-bottom: 0;
+      }
     `,
-    bFormItem: css`
-      margin-bottom: 14px;
+    // 子信息块
+    bb: css`
+      position: relative;
+      margin-bottom: 44px;
+      &:last-child {
+        margin-bottom: 16px;
+      }
+      &:hover {
+        background-color: ${token.colorBgLayout};
+        outline: 10px ${token.colorBgLayout} solid;
+      }
+    `,
+    bbAction: css`
+      position: absolute;
+      right: 16px;
+      top: -8px;
+      & .ant-btn {
+        margin-left: 12px;
+        padding: 0;
+      }
     `,
   };
 });

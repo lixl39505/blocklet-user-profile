@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Button, Form, Input } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import { type Job } from '~/types/user-profile';
+import useStyles from './profile.style';
 
 // 工作信息
 function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void; onDelete?: (item: Job) => void }) {
   const { name, job, onCancel, onDelete } = props;
   const [editable, setEditable] = useState(job.id === 'Added');
+  const { styles } = useStyles();
 
   // init form
   const initialData = job;
@@ -18,13 +21,7 @@ function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void
   }, [job, form]);
 
   return (
-    <div>
-      {!editable && (
-        <>
-          <Button onClick={() => setEditable(true)}>编辑</Button>
-          <Button onClick={() => onDelete && onDelete(job)}>删除</Button>
-        </>
-      )}
+    <div className={styles.bb}>
       {editable ? (
         <Form
           name={name}
@@ -51,8 +48,9 @@ function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void
           <Form.Item<Job> label="工作描述" name="desc">
             <Input.TextArea rows={4} placeholder="不超过 300 字" maxLength={300} allowClear />
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Form.Item className={styles.bFormItem} style={{ textAlign: 'center' }}>
             <Button
+              style={{ marginRight: '12px' }}
               onClick={() => {
                 if (onCancel) onCancel(job);
                 setEditable(false);
@@ -66,16 +64,28 @@ function ItemJob(props: { name: string; job: Job; onCancel?: (item: Job) => void
         </Form>
       ) : (
         <div>
-          <div>公司名称</div>
-          <div>{initialData.company}</div>
-          <div>职位名称</div>
-          <div>{initialData.post}</div>
-          <div>开始时间</div>
-          <div>{initialData.startDate}</div>
-          <div>结束时间</div>
-          <div>{initialData.endDate}</div>
-          <div>工作描述</div>
-          <div>{initialData.desc}</div>
+          <div className={styles.bbAction}>
+            <Button icon={<EditOutlined />} type="link" iconPosition="start" onClick={() => setEditable(true)}>
+              编辑
+            </Button>
+            <Button
+              icon={<DeleteOutlined />}
+              type="link"
+              iconPosition="start"
+              onClick={() => onDelete && onDelete(job)}>
+              删除
+            </Button>
+          </div>
+          <div className={styles.bLabel}>公司名称</div>
+          <div className={styles.bValue}>{initialData.company}</div>
+          <div className={styles.bLabel}>职位名称</div>
+          <div className={styles.bValue}>{initialData.post}</div>
+          <div className={styles.bLabel}>时间</div>
+          <div className={styles.bValue}>
+            {initialData.startDate} - {initialData.endDate || '至今'}
+          </div>
+          <div className={styles.bLabel}>工作描述</div>
+          <div className={styles.bValue}>{initialData.desc}</div>
         </div>
       )}
     </div>
