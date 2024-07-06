@@ -1,46 +1,61 @@
 import { createContext, Dispatch, useEffect, useReducer } from 'react';
 import { profileOne } from '@api/user-profile';
-import { UserProfile } from '~/types/user-profile';
+import { BaseInfo, Job, UserProfile } from '~/types/user-profile';
 
 export const ProfileContext = createContext<UserProfile | null>(null);
-export const ProfileDispatchContext = createContext<Dispatch<{ type: ActionType; payload: UserProfile }> | null>(null);
-export type ActionType = 'replace' | 'update:baseInfo' | 'update:edus' | 'update:jobs' | 'update:projects';
+export const ProfileDispatchContext = createContext<Dispatch<Action> | null>(null);
+export type Action =
+  | { type: 'replace'; payload: UserProfile }
+  | { type: 'update:baseInfo'; payload: BaseInfo }
+  | { type: 'update:job'; payload: Job }
+  | { type: 'delete:job'; payload: string };
 
-const initialProfile: UserProfile = {};
+const initialProfile: UserProfile = { id: '1' };
 
-function profileReducer(profile: UserProfile, action: { type: ActionType; payload: UserProfile }) {
-  const { type, payload } = action;
-
-  switch (type) {
+// 维护客户端 UserProfile 状态
+function profileReducer(profile: UserProfile, action: Action): UserProfile {
+  switch (action.type) {
     case 'replace': {
-      return payload;
+      return action.payload;
     }
     case 'update:baseInfo': {
       return {
         ...profile,
-        baseInfo: payload.baseInfo,
+        baseInfo: action.payload,
       };
     }
-    case 'update:edus': {
+    case 'update:job': {
+      const job = action.payload;
+      const jobs = profile.jobs || [];
+      const i = jobs.findIndex((v) => v.id === job.id);
+
+      if (i >= 0) Object.assign(jobs[i]!, job);
+      else jobs.push(job);
+
       return {
         ...profile,
-        edus: payload.edus,
+        jobs,
       };
     }
-    case 'update:jobs': {
-      return {
-        ...profile,
-        jobs: payload.jobs,
-      };
-    }
-    case 'update:projects': {
-      return {
-        ...profile,
-        projects: payload.projects,
-      };
+    case 'delete:job': {
+      const { jobs } = profile;
+      const tid = action.payload;
+
+      if (jobs && jobs.length) {
+        const i = jobs.findIndex((v) => v.id === tid);
+        if (i >= 0) {
+          // 成功删除
+          return {
+            ...profile,
+            jobs: jobs.filter((v) => v.id !== tid),
+          };
+        }
+      }
+      // 保持原样
+      return profile;
     }
     default: {
-      throw Error(`Unknown action: ${action.type}`);
+      throw Error(`Unknown action: ${action}`);
     }
   }
 }

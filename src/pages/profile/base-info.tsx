@@ -1,13 +1,13 @@
-// import { useState } from 'react';
 import { useContext, useEffect, useState } from 'react';
 import type { FormProps } from 'antd';
 import { Button, Form, Input, Radio } from 'antd';
 import { Gender, type BaseInfo as TBaseInfo } from '~/types/user-profile';
-import { profileSave } from '@api/user-profile';
+import { baseInfoSave } from '@api/user-profile';
 import { ProfileContext, ProfileDispatchContext } from './hooks/use-profile';
 
+// 基本信息
 function BaseInfo() {
-  const profile = useContext(ProfileContext);
+  const profile = useContext(ProfileContext)!;
   const dispatch = useContext(ProfileDispatchContext)!;
   const [editable, setEditable] = useState(false);
 
@@ -17,24 +17,25 @@ function BaseInfo() {
 
   // baseInfo 同步
   useEffect(() => {
-    if (profile?.id && profile.baseInfo) {
+    if (profile.id && profile.baseInfo) {
       form.setFieldsValue(profile.baseInfo);
     }
   }, [profile, form]);
 
   // 保存
   const onFinish: FormProps<TBaseInfo>['onFinish'] = async (values) => {
-    const newProfile = {
-      ...profile,
-      baseInfo: values,
-    };
-    await profileSave(newProfile);
+    await baseInfoSave(profile!.id, values);
     // todo 乐观更新
     dispatch({
       type: 'update:baseInfo',
-      payload: newProfile,
+      payload: values,
     });
 
+    setEditable(false);
+  };
+
+  // 取消
+  const onCancel = () => {
     setEditable(false);
   };
 
@@ -71,7 +72,7 @@ function BaseInfo() {
             <Input.TextArea rows={4} placeholder="不超过 300 字" maxLength={300} allowClear />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button>取消</Button>
+            <Button onClick={onCancel}>取消</Button>
             <Button type="primary" htmlType="submit">
               完成
             </Button>
