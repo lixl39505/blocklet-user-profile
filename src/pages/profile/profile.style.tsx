@@ -116,6 +116,7 @@ export default createStyles(({ token, css, responsive }) => {
     bb: css`
       position: relative;
       margin-bottom: 44px;
+      border-bottom: 1px solid ${token.colorBorder};
       &:last-child {
         margin-bottom: 16px;
       }
