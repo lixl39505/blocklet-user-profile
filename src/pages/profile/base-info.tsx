@@ -100,18 +100,20 @@ function BaseInfo() {
           </Form.Item>
         </Form>
       ) : (
-        <div>
-          <div className={styles.bLabel}>姓名</div>
-          <div className={styles.bValue}>{initialData.name}</div>
-          <div className={styles.bLabel}>性别</div>
-          <div className={styles.bValue}>{initialData.gender === Gender.Male ? '男' : '女'}</div>
-          <div className={styles.bLabel}>手机号</div>
-          <div className={styles.bValue}>{initialData.phone}</div>
-          <div className={styles.bLabel}>邮箱</div>
-          <div className={styles.bValue}>{initialData.email}</div>
-          <div className={styles.bLabel}>简介</div>
-          <div className={styles.bValue}>{initialData.intro}</div>
-        </div>
+        initialData.name && (
+          <div>
+            <div className={styles.bLabel}>姓名</div>
+            <div className={styles.bValue}>{initialData.name}</div>
+            <div className={styles.bLabel}>性别</div>
+            <div className={styles.bValue}>{initialData.gender === Gender.Male ? '男' : '女'}</div>
+            <div className={styles.bLabel}>手机号</div>
+            <div className={styles.bValue}>{initialData.phone}</div>
+            <div className={styles.bLabel}>邮箱</div>
+            <div className={styles.bValue}>{initialData.email}</div>
+            <div className={styles.bLabel}>简介</div>
+            <div className={styles.bValue}>{initialData.intro}</div>
+          </div>
+        )
       )}
     </div>
   );
