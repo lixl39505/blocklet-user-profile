@@ -73,8 +73,12 @@ function BaseInfo() {
               <Radio value={Gender.Female}>女</Radio>
             </Radio.Group>
           </Form.Item>
-          <Form.Item<TBaseInfo> className={styles.bFormItem} label="手机号" name="phone">
-            <Input placeholder="11 位手机号" maxLength={11} allowClear />
+          <Form.Item<TBaseInfo>
+            className={styles.bFormItem}
+            label="手机号"
+            name="phone"
+            rules={[{ pattern: /^1\d{10}$/, message: '手机号码格式不正确' }]}>
+            <Input placeholder="输入 11 位手机号" allowClear />
           </Form.Item>
           <Form.Item<TBaseInfo>
             className={styles.bFormItem}
