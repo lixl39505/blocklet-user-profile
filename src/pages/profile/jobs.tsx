@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Form, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
@@ -12,8 +12,14 @@ import useStyles from './profile.style';
 function Jobs() {
   const profile = useContext(ProfileContext)!;
   const dispatch = useContext(ProfileDispatchContext)!;
-  const jobs = profile.jobs || [];
   const { styles } = useStyles();
+
+  const [isAddMode, setIsAddMode] = useState(false);
+
+  let jobs = profile.jobs || [];
+  if (isAddMode) {
+    jobs = jobs.filter((v) => v.id === 'Added');
+  }
 
   // 新增工作经验
   const onAdd = () => {
@@ -27,6 +33,7 @@ function Jobs() {
         desc: '',
       },
     });
+    setIsAddMode(true);
   };
   // 删除工作经验
   const onDelete = async (item: Job) => {
@@ -46,6 +53,7 @@ function Jobs() {
     if (data.id === 'Added') {
       data.id = '';
       onDelete(job);
+      setIsAddMode(false);
     }
     const id = await jobSave(profile.id, data);
 
@@ -58,6 +66,7 @@ function Jobs() {
   const onCancel = (item: Job) => {
     if (item.id === 'Added') {
       onDelete(item);
+      setIsAddMode(false);
     }
   };
 
