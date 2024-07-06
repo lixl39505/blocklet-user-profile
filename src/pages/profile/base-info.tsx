@@ -41,7 +41,6 @@ function BaseInfo() {
 
   return (
     <div>
-      <h2 id="baseInfo">基本信息</h2>
       {!editable && <Button onClick={() => setEditable(true)}>编辑</Button>}
       {editable ? (
         <Form

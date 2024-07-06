@@ -1,4 +1,4 @@
-import { Card, Layout } from 'antd';
+import { Layout } from 'antd';
 import useProfile, { ProfileContext, ProfileDispatchContext } from './hooks/use-profile';
 import BaseInfo from './base-info';
 import Jobs from './jobs';
@@ -23,20 +23,28 @@ function Profile() {
             trigger={null}
             theme="light"
             width={180}>
-            <Card style={{ marginRight: '12px' }} styles={{ body: { padding: '12px 4px' } }}>
+            <div className={`${styles.card} ${styles.aside}`}>
               <a className={styles.nav} href="#baseInfo">
                 基本信息
               </a>
               <a className={styles.nav} href="#jobs">
                 工作经历
               </a>
-            </Card>
+            </div>
           </Layout.Sider>
           <Layout.Content>
-            <Card styles={{ body: { padding: '0 16px 16px' } }}>
+            <div className={styles.card}>
+              <h2 className={styles.title} id="baseInfo">
+                基本信息
+              </h2>
               <BaseInfo />
+            </div>
+            <div className={styles.card}>
+              <h2 className={styles.title} id="jobs">
+                工作经历
+              </h2>
               <Jobs />
-            </Card>
+            </div>
           </Layout.Content>
         </Layout>
       </ProfileDispatchContext.Provider>
