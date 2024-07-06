@@ -45,7 +45,7 @@ export default createStyles(({ token, css }) => {
     // 信息块-头部操作栏
     bHAction: css`
       position: absolute;
-      right: 16px;
+      right: 0;
       top: -50px;
       & .ant-btn {
         margin-left: 12px;
@@ -84,7 +84,7 @@ export default createStyles(({ token, css }) => {
     `,
     bbAction: css`
       position: absolute;
-      right: 16px;
+      right: 0;
       top: -8px;
       & .ant-btn {
         margin-left: 12px;

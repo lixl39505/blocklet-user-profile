@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Form, Button } from 'antd';
+import { App, Form, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
 import { jobDelete, jobSave } from '~/src/api/user-profile';
@@ -36,7 +36,8 @@ function Jobs() {
     setIsAddMode(true);
   };
   // 删除工作经验
-  const onDelete = async (item: Job) => {
+  const { modal } = App.useApp();
+  const doDelete = async (item: Job) => {
     if (item.id) {
       if (item.id !== 'Added') {
         await jobDelete(profile.id, item.id);
@@ -47,12 +48,26 @@ function Jobs() {
       });
     }
   };
+  const onDelete = (item: Job) => {
+    const instance = modal.confirm({
+      title: '温馨提示',
+      content: '删除后不可恢复，确认删除吗？',
+      centered: true,
+      onOk() {
+        doDelete(item);
+        instance.destroy();
+      },
+      onCancel() {
+        instance.destroy();
+      },
+    });
+  };
   // 保存工作经验
   const onJobSave = async (job: Job) => {
     const data = { ...job };
     if (data.id === 'Added') {
       data.id = '';
-      onDelete(job);
+      doDelete(job);
       setIsAddMode(false);
     }
     const id = await jobSave(profile.id, data);
@@ -65,7 +80,7 @@ function Jobs() {
   // 取消编辑
   const onCancel = (item: Job) => {
     if (item.id === 'Added') {
-      onDelete(item);
+      doDelete(item);
       setIsAddMode(false);
     }
   };
