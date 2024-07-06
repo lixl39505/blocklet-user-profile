@@ -1,6 +1,6 @@
 import type { Low } from 'cjs-lowdb';
 import { JSONFilePreset } from 'cjs-lowdb/node';
-import { Candidates } from '~/types/user-profile';
+import { Candidates } from '../types/user-profile';
 
 import env from './env';
 

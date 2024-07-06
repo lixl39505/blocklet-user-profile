@@ -2,7 +2,7 @@ import middleware from '@blocklet/sdk/lib/middlewares';
 import { Request, Router } from 'express';
 import type { Low } from 'cjs-lowdb';
 
-import { BaseInfo, Candidates, Job } from '~/types/user-profile';
+import { BaseInfo, Candidates, Job } from '~/api/src/types/user-profile';
 import initDB from '../libs/db';
 import { uid } from '../libs/util';
 

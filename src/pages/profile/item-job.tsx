@@ -3,7 +3,7 @@ import { Button, Form, Input, DatePicker } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import dayjs, { Dayjs } from 'dayjs';
 
-import { type Job } from '~/types/user-profile';
+import { type Job } from '~/api/src/types/user-profile';
 import useStyles from './profile.style';
 
 export interface FJob extends Omit<Job, 'startDate' | 'endDate'> {

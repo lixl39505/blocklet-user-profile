@@ -3,7 +3,7 @@ import { App, Form, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
 import { jobDelete, jobSave } from '~/src/api/user-profile';
-import { Job } from '~/types/user-profile';
+import { Job } from '~/api/src/types/user-profile';
 import { ProfileContext, ProfileDispatchContext } from './hooks/use-profile';
 import ItemJob, { FJob } from './item-job';
 import useStyles from './profile.style';

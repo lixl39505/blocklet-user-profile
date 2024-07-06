@@ -3,7 +3,7 @@ import type { FormProps } from 'antd';
 import { Button, Form, Input, Radio } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 
-import { Gender, type BaseInfo as TBaseInfo } from '~/types/user-profile';
+import { Gender, type BaseInfo as TBaseInfo } from '~/api/src/types/user-profile';
 import { baseInfoSave } from '@api/user-profile';
 import { ProfileContext, ProfileDispatchContext } from './hooks/use-profile';
 import useStyles from './profile.style';

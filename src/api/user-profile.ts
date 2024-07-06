@@ -1,4 +1,4 @@
-import { BaseInfo, Job, UserProfile } from '~/types/user-profile';
+import { BaseInfo, Job, UserProfile } from '~/api/src/types/user-profile';
 import api from '../libs/api';
 
 /**

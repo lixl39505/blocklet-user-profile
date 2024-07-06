@@ -1,6 +1,6 @@
 import { createContext, Dispatch, useEffect, useReducer } from 'react';
 import { profileOne } from '@api/user-profile';
-import { BaseInfo, Job, UserProfile } from '~/types/user-profile';
+import { BaseInfo, Job, UserProfile } from '~/api/src/types/user-profile';
 
 export const ProfileContext = createContext<UserProfile | null>(null);
 export const ProfileDispatchContext = createContext<Dispatch<Action> | null>(null);
